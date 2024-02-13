@@ -13,58 +13,44 @@ const client = new MongoClient(url);
 const db = client.db("valentine");
 const coll = db.collection("dateinfo");
 
-const info = [
+
     app.post("/foods", async (req, res) => {
         console.log(req.body);          // this would be the data sent with the request
         await coll.insertOne({name: req.body})
-    }),
+        res.redirect('/desserts')
+    })
+
+
+
     app.post("/desserts", async (req, res) => {
         console.log(req.body);          // this would be the data sent with the request
         await coll.insertOne({name: req.body})
-    }),
+        res.redirect('/activities')
+    })
+
     app.post("/activities", async (req, res) => {
         console.log(req.body);          // this would be the data sent with the request
         await coll.insertOne({name: req.body})
+        res.redirect('/lastpage')
     })
-];
-/*mongoose.connect(url, {
-    useNewUrlParser:true,useUnifiedTopology:true
-}, (err)=>{
-    if(err){
-        console.log(err)
-    } else{
-        console.log("connected")
-    }
-});*/
 
 
+    app.get('/desserts', (req, res)  => {
+        res.sendFile(__dirname + '/valentine.github.io-main/dessert.html')
+    })
 
+    app.get('/activities', (req, res)  => {
+        res.sendFile(__dirname + '/valentine.github.io-main/activities.html')
+    })
 
-/*mongoClient.connect(async function(error, mongo) {
+    app.get('/lastpage', (req, res)  => {
+        res.sendFile(__dirname + '/valentine.github.io-main/lastpage.html')
+    })
 
-    let db = mongo.db('skillcheck');
-    let coll = db.collection('items');
-   
-});*/
-
-
-
-/*const db = async()=> {
-    try{
-        const con = await mongoose.connect(url)
-        console.log('Mongo connected')
-    } catch (error){
-        console.log('Error Aken')
-    }
-}*/
- 
+    
+    
 
 app.use(express.static(path.join(__dirname, 'valentine.github.io-main')));
-
-
-
-
-  
 
 app.listen(3000, () => {
     console.log("App working BLYa");
