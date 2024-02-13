@@ -4,7 +4,10 @@ const app = express();
 app.use(express.json());
 const mongoose = require("mongoose");
 
+var cors = require('cors')
 
+app.use(express.urlencoded({extended:true}));
+app.use(cors())
 
 const { MongoClient } = require("mongodb");
 const url = 'mongodb+srv://muntinov06:50KZhhpNMhpPuQcH@dan.rjwcnj5.mongodb.net/valentine'
